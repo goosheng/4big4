@@ -1,0 +1,27 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+//assume all characters in string are lower case
+bool isPermutation(string x, string y)
+{
+	int alpha[26] = { 0 };
+	for (auto i : x) alpha[i - 'a']++;
+	for (auto i : y)
+	{
+		if (alpha[i - 'a'] > 0) alpha[i - 'a']--;
+	}
+	for (auto i : alpha) if (i > 0) return false;
+	return true;
+}
+
+int main()
+{
+	string a = "hello jimmy";
+	string b = "hello every one";
+	if (isPermutation(a, b)) cout << "yes";
+	else cout << "no";
+	getchar();
+    return 0;
+}
