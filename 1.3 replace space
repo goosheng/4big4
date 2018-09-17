@@ -1,0 +1,31 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+void replaceSpace(string s, int length, string& d)
+{
+	for (int i = 0, pos = 0; i <= length; i++)
+	{
+		if (s[i] == ' ')
+		{
+			d += s.substr(pos, i - pos);
+			d += "%20";//here should use "" instead of ''
+			pos = i + 1;
+		}
+		if (s[i] == '\0')
+			d += s.substr(pos, i - pos);
+	}
+	return;
+}
+
+int main()
+{
+	string a = "  Mr John  Smith  ";
+	string b;
+	replaceSpace(a, 17, b);
+	cout << a << endl;
+	cout << b;
+	getchar();
+    return 0;
+}
