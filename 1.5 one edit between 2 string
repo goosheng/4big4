@@ -1,0 +1,58 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+bool oneEditAway(string a, string b)
+{
+	if (a.length() == b.length())
+	{
+		int diff = 0;
+		for (int i = 0; i < a.length(); i++)
+		{
+			if (a[i] != b[i]) diff++;
+		}
+		if (diff < 2) return true;
+		return false;
+	}
+	if (a.length() - b.length() == 1)
+	{
+		int diff = 0;
+		for (int i = 0, j = 0; i < b.length(); i++, j++)
+		{
+			if (a[j] != b[i])
+			{
+				diff++;
+				if (diff > 1) return false;
+				i--;
+			}
+		}
+		return true;
+	}
+	if (b.length() - a.length() == 1)
+	{
+		int diff = 0;
+		for (int i = 0, j = 0; i < a.length(); i++, j++)
+		{
+			if (a[i] != b[j])
+			{
+				diff++;
+				if (diff > 1) return false;
+				i--;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+int main()
+{
+	string a = "plorseasx";
+	string b = "plorsees";
+	
+	if (oneEditAway(a, b)) cout << "yes";
+	else cout << "no";
+	getchar();
+    return 0;
+}
