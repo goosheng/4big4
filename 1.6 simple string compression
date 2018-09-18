@@ -1,0 +1,36 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+void stringCompression(const string s, string& d)
+{
+	int count = 0;
+	char c = s[0];
+	
+	for (int i = 0; i<s.length(); i++)
+	{
+		if (s[i] == c) count++;
+		else
+		{
+			d.push_back(c);
+			d.push_back('0' + count);
+			c = s[i];
+			count = 1;
+		}
+	}
+	d.push_back(c);
+	d.push_back('0' + count);
+	if (d.length() >= s.length()) d = s;
+	return;
+}
+int main()
+{
+	string s = "aabbccc";
+	string d;
+	stringCompression(s, d);
+	cout << s << endl;
+	cout << d;
+	getchar();
+    return 0;
+}
