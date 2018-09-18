@@ -1,0 +1,33 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+bool isPalinPermutation(string s)
+{
+	long dic  { 0 };
+	for (auto a : s)
+	{
+		if (a == ' ' || a == '\0') continue;
+		dic^=1<<((a>='A'&&a<='Z')?a-'A':a-'a');
+	}
+	
+	if(dic==0) return true;
+	int count = 0;
+	while (dic > 0)
+	{
+		if (dic & 1 == 1) count++;
+		dic >>= 1;
+	}
+	if (count == 1) return true;
+	return false;
+}
+int main()
+{
+	string s{ "abcdba" };
+	if (isPalinPermutation(s)) cout << "yes";
+	else cout << "no";
+	getchar();
+    return 0;
+}
