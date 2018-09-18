@@ -1,0 +1,30 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+bool isPalinPermutation(string s)
+{
+	int dic[128]  { 0 };
+	for (auto a : s)
+	{
+		if (a == ' ' || a == '\0') continue;
+		dic[a>'A'&&a<'Z'?a-'A'+'a':a]++;
+	}
+	int odd = 0;
+	for (auto i : dic)
+	{
+		if (i % 2 == 1) odd++;
+	}
+	if(odd==1) return true;
+	return false;
+}
+int main()
+{
+	string s{ "Tact coa" };
+	if (isPalinPermutation(s)) cout << "yes";
+	else cout << "no";
+	getchar();
+    return 0;
+}
