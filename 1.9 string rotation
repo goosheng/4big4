@@ -1,0 +1,33 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+bool stringRotation(string s1, string s2)
+{
+	if (s1.length() != s2.length()) return false;
+	int len = s1.length();
+	int i;
+	for (i = 0; i < len; i++)
+	{
+		if (s2[i] == s1[0]) break;
+	}
+	if (i == len) return false;
+	for (int j = 1; j < len; j++)
+	{
+		int k = i + j;
+		if (k>= len) k -= len;
+		if (s1[j] != s2[k]) return false;
+	}
+	return true;
+}
+
+int main()
+{
+	string s1 = "elwaterbott";
+	string s2 = "bottlewater";
+	if (stringRotation(s1, s2)) cout << "yes";
+	else cout << "no";
+	getchar();
+    return 0;
+}
