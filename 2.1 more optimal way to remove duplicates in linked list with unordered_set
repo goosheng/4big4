@@ -1,0 +1,68 @@
+#include "stdafx.h"
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+struct node
+{
+	int val;
+	node* next;
+};
+node *createSinglyLinkedList(int a[], int len)
+{
+	if (!len) return NULL;
+	node *head = new node();
+	head->val = a[0];
+	head->next = NULL;
+	node *p = head;
+	for (int i = 1; i < len; i++)
+	{
+		p->next = new node;
+		p->next->val = a[i];
+		p->next->next = NULL;
+		p = p->next;
+	}
+	return head;
+}
+void printLinkedList(node *h)
+{
+	while (h != NULL)
+	{
+		cout << h->val << ' ';
+		h = h->next;
+	}
+	cout << endl;
+	return;
+}
+void removeDup(node *head)
+{
+	if (head == NULL) return;
+	if (head->next == NULL) return;
+	node *h = head;
+	unordered_set<int> valSet;
+	valSet.insert(h->val);
+	while (h->next != NULL)
+	{
+		if (valSet.count(h->next->val) == 0)
+		{
+			valSet.insert(h->next->val);
+			h = h->next;
+		}
+		else
+		{
+			node* h1 = h->next;
+			h->next = h1->next;
+			delete h1;
+		}
+	}
+	return;
+}
+int main()
+{
+	int a[]{ 5,3,2,5,5,4,7,8,5,3,1,4,3,6,8,5 };
+	node *h = createSinglyLinkedList(a, sizeof(a) / sizeof(int));
+	printLinkedList(h);
+	removeDup(h);
+	printLinkedList(h);
+	getchar();
+	return 0;
+}
