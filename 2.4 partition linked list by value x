@@ -1,0 +1,69 @@
+#include "stdafx.h"
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+struct node
+{
+	int val;
+	node* next;
+};
+node *createSinglyLinkedList(int a[], int len)
+{
+	if (!len) return NULL;
+	node *head = new node();
+	head->val = a[0];
+	head->next = NULL;
+	node *p = head;
+	for (int i = 1; i < len; i++)
+	{
+		p->next = new node;
+		p->next->val = a[i];
+		p->next->next = NULL;
+		p = p->next;
+	}
+	return head;
+}
+void printLinkedList(node *h)
+{
+	while (h != NULL)
+	{
+		cout << h->val << ' ';
+		h = h->next;
+	}
+	cout << endl;
+	return;
+}
+void partition(node *n, int val)
+{
+	if (n == NULL) return;
+	if (n->next == NULL) return;
+	node *big = n;
+	node *small = n;
+	while (big&&small)
+	{
+		if (big->val < val) 
+		{
+			big = big->next; 
+			continue;
+		}
+		if (small->val >= val)
+		{
+			small = small->next;
+			continue;
+		}
+		int temp = big->val;
+		big->val = small->val;
+		small->val = temp;
+	}
+	return;
+}
+int main()
+{
+	int a[]{ 5,3,2,5,5,4,7,8,5,3,1,4,3,6,8,5 };
+	node *h = createSinglyLinkedList(a, sizeof(a) / sizeof(int));
+	printLinkedList(h);
+	partition(h,5);
+	printLinkedList(h);
+	getchar();
+	return 0;
+}
